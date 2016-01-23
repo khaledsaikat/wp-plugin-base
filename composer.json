@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+            "PluginBase\\": "models/",
+            "PluginBase\\Controllers\\": "controllers/"
+        },
+        "files": [
+            "helpers.php"
+        ]
+    }
+}
