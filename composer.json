@@ -1,8 +1,16 @@
 {
+    "name": "khaledsaikat/wp-plugin-base",
+    "description": "Base files for creating new WordPress plugin",
+    "keywords": ["wordpress", "plugin"],
+    "license": "GNU",
+    "authors": [
+        {
+            "name": "Khaled Hossain"
+        }
+    ],
     "autoload": {
         "psr-4": {
-            "PluginBase\\": "models/",
-            "PluginBase\\Controllers\\": "controllers/"
+            "PluginBase\\": "models/"
         },
         "files": [
             "helpers.php"

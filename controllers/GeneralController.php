@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginBase\Controllers;
+namespace PluginBase;
 
 /**
  * @author Khaled Hossain

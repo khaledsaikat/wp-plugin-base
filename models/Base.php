@@ -91,13 +91,49 @@ class Base
     }
 
     /**
+     * Get resources url.
+     *
+     * @return string
+     */
+    public static function resource_url()
+    {
+        return self::base_url().'/resources';
+    }
+
+    /**
+     * Get list of files from a directory.
+     *
+     * @param strings $directory full path of the directory
+     * @param strings $filter    Filter return list (e.g: php)
+     *
+     * @return array
+     */
+    public static function get_files_list($directory, $filter = null)
+    {
+        $files = array();
+        if (file_exists($directory)) {
+            foreach (scandir($directory) as $item) {
+                if ((in_array($item, ['.', '..'])) || ($filter && !preg_match("/\.$filter$/i", $item))) {
+                    continue;
+                }
+
+                $files[] = $item;
+            }
+        }
+
+        return $files;
+    }
+
+    /**
      * make instance of each controller class.
      */
     public static function load_controllers()
     {
-        foreach (scandir(self::base_path().'/controllers') as $file) {
+        $files = self::get_files_list(self::base_path().'/controllers', 'php');
+        foreach ($files as $file) {
             if (strpos($file, 'Controller.php') !== false) {
-                $class = __NAMESPACE__.'\Controllers\\'.rtrim($file, '.php');
+                require_once self::base_path().'/controllers/'.$file;
+                $class = __NAMESPACE__.'\\'.rtrim($file, '.php');
                 new $class();
             }
         }
@@ -112,7 +148,7 @@ class Base
      *
      * @return string
      */
-    public static function view($view = null, $data = [], $mergeData = [])
+    public static function view($view = null, $data = [])
     {
         $path = self::base_path().'/resources/views';
         $path .= '/'.str_replace('.', '/', $view).'.php';
@@ -132,11 +168,12 @@ class Base
      *
      * @param string  $subdir   (optionl)
      * @param strings $filename Filename with extension
+     * @param string  $handle
      */
-    public function enque_script($filename, $subdir = null)
+    public static function enque_script($filename, $subdir = null, $handle = null)
     {
         $file = \pathinfo($filename);
-        $handle = $file['filename'];
+        $handle = !empty($handle) ? $handle : $file['filename'];
         $part_path = !empty($subdir) ? $subdir.'/' : '';
         $part_path .= $filename;
         if ($file['extension'] == 'js') {
