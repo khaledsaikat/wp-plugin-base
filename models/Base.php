@@ -17,9 +17,10 @@ class Base
     private static $plugin_data = array();
 
     /**
-     * Assign $plugin_data.
+     * Populate $plugin_data.
+     * This method should called by plugin's main file right before loading controllers.
      *
-     * @param string __FILE__
+     * @param string __FILE__ : Path of the plugin main file
      */
     public static function init($file_path)
     {

@@ -1,6 +1,22 @@
 <?php
 
 /**
+ * Add more data to an add_to_array.
+ *
+ * @param array $base     Base array in which data shall be added
+ * @param array $provided New data to added
+ * @param array $keys     valid keys of array
+ */
+function add_to_array(array &$base, array $provided, array $keys)
+{
+    foreach ($keys as $key) {
+        if (isset($provided[$key])) {
+            $base[$key] = $provided[$key];
+        }
+    }
+}
+
+/**
  * Get json file from path
  *
  * @param string $file

@@ -43,11 +43,15 @@ class Data
      *
      * @param string: $key
      *
-     * @return string: mapped value
+     * @return string|array: mapped value
      */
-    public static function maps($key)
+    public static function maps($key = null)
     {
-        return self::$maps[$key];
+        if (!empty($key)) {
+            return self::$maps[$key];
+        }
+
+        return self::$maps;
     }
 
     /**
