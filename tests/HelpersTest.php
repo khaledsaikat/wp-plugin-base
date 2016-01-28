@@ -1,21 +1,10 @@
 <?php
 
-use Jazel\GF\ADF\Base;
-use Jazel\GF\ADF\Helpers;
+namespace PluginBase;
 
-class HelpersTest extends TestCase
+class HelpersTest extends \TestCase
 {
-    public function test_get_files_list()
+    public function test_example()
     {
-        $files = Helpers\get_files_list(Base::base_dir());
-        $this->assertTrue(!empty($files));
-    }
-
-    public function test_get_files_list_with_filter()
-    {
-        $files = Helpers\get_files_list(Base::base_dir(), 'php');
-        foreach ($files as $file) {
-            $this->assertContains('.php', $file);
-        }
     }
 }

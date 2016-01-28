@@ -1,86 +1,46 @@
 <?php
 
-use Jazel\GF\ADF\Data;
+namespace PluginBase;
 
-class DataTest extends TestCase
+class DataTest extends \TestCase
 {
-
-    /**
-     * @dataProvider mapskeys
-     */
-    public function testMaps($key)
+    public function test_cache()
     {
-        $this->assertFalse(empty(Data::maps($key)));
+        Data::$cache['test'] = 'temp';
+        $this->assertEquals(Data::$cache['test'], 'temp');
     }
 
-    public function mapskeys()
+    /**
+     * @dataProvider maps_keys
+     */
+    public function test_maps($key)
+    {
+        $this->assertTrue(!empty(Data::maps($key)));
+    }
+
+    public function maps_keys()
     {
         return [
-            ['settings'],
-            ['make_model'],
-            ['schedule_hook'],
-            ['make_class'],
-            ['model_class'],
+            ['sample'],
         ];
     }
 
-    private static function dummySettings()
+    public function test_maps_all()
     {
-        return [
-            'gform_ids' => '1:2:3, 2:2:3'
-        ];
+        $this->assertTrue(!empty(Data::maps()));
+        $this->assertTrue(is_array(Data::maps()));
     }
 
-    /**
-     * @depends testMaps
-     */
-    public function testUpdateGetData()
+    public function test_get_data_update_data()
     {
-        Data::update_data('settings', '');
-        $this->assertEmpty(Data::get_data('settings'));
-
-        Data::update_data('settings', self::dummySettings());
-        $this->assertFalse(empty(Data::get_data('settings')));
+        $data = rand();
+        Data::update_data('sample', $data);
+        $this->assertEquals(Data::get_data('sample'), $data);
     }
 
-    /**
-     * @depends testUpdateGetData
-     */
-    public function testGformValidForms()
+    public function test_filter_data()
     {
-        Data::update_data('settings', [
-            'gform_ids' => '1:2:3, 2:2:3'
-        ]);
-
-        $data = Data::gform_valid_forms();
-
-        $this->assertFalse(empty($data));
-
-        foreach ($data as $form) {
-            $this->assertFalse(empty($form['id']));
-            $this->assertFalse(empty($form['make']));
-            $this->assertFalse(empty($form['model']));
-        }
+        $data = Data::filter_data(['a' => 'A', 'b' => 'B'], ['b']);
+        $this->assertTrue(!isset($data['a']));
     }
-
-    public function testStartSchedule()
-    {
-        Data::start_schedule();
-
-        $hook = Data::maps('schedule_hook');
-        $schedule = wp_get_schedule($hook);
-
-        $this->assertEquals('daily', wp_get_schedule($hook));
-    }
-
-    public function testRemoveSchedule()
-    {
-        Data::remove_schedule();
-
-        $hook = Data::maps('schedule_hook');
-        $schedule = wp_get_schedule($hook);
-
-        $this->assertFalse(wp_get_schedule($hook));
-    }
-
 }

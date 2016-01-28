@@ -72,16 +72,6 @@ class Base
     }
 
     /**
-     * Get base namespace of the plugin.
-     *
-     * @return string: Current namespace
-     */
-    public static function base_namespace()
-    {
-        return __NAMESPACE__;
-    }
-
-    /**
      * Get path of resources directory.
      *
      * @return string
@@ -143,7 +133,7 @@ class Base
     /**
      * Get the evaluated view contents for the given view.
      *
-     * @param string $view
+     * @param string $view      allows subdirectory as . or / notation
      * @param array  $data
      * @param array  $mergeData
      *

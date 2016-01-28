@@ -22,7 +22,7 @@ class Data
      * Maps array to store key => value.
      */
     private static $maps = array(
-        'sample' => 'maped_sample'
+        'sample' => 'maped_sample',
     );
 
     /**
@@ -30,7 +30,7 @@ class Data
      * $optionMaps used for get_option() and update_option().
      */
     private static $option_maps = array(
-        'sample' => 'sample_option'
+        'sample' => 'sample_option',
     );
 
     /**
@@ -106,14 +106,14 @@ class Data
     }
 
     /**
-     * Filter data for allowed key.
+     * Filter data for allowed key. Remove all values those are not appears in $valid_attr.
      *
      * @param array: $data
      * @param array: $valid_attr
      *
      * @return array: filtered data
      */
-    private static function filter_data(array $data, array $valid_attr)
+    public static function filter_data(array $data, array $valid_attr)
     {
         foreach ($data as $key => $itm) {
             if (!in_array($key, $valid_attr)) {
