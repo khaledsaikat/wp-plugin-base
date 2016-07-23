@@ -1,6 +1,25 @@
 <?php
 
 /**
+ * Remove empty lines from string.
+ *
+ * @param strings $text
+ *
+ * @return strings
+ */
+function remove_empty_lines($text)
+{
+    $lines = explode("\n", $text);
+    foreach ($lines as $key => $line) {
+        if (empty(trim($line))) {
+            unset($lines[$key]);
+        }
+    }
+
+    return implode("\n", $lines);
+}
+
+/**
  * Add more data to an add_to_array.
  *
  * @param array $base     Base array in which data shall be added
