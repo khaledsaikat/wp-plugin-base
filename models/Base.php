@@ -3,7 +3,7 @@ namespace PluginBase;
 
 /**
  * Base class for loading the plugin.
- * Base class version 1.0.1
+ * Base class version 1.0.2
  *
  * @author Khaled Hossain
  */
@@ -13,7 +13,7 @@ class Base
     /**
      * an array to hold plugin's data.
      */
-    private static $plugin_data = array();
+    private static $plugin_data = [];
 
     /**
      * Populate $plugin_data.
@@ -24,10 +24,10 @@ class Base
      */
     public static function init($file_path)
     {
-        $plugin_headers = array(
+        $plugin_headers = [
             'name' => 'Plugin Name',
             'version' => 'Version'
-        );
+        ];
         self::$plugin_data = get_file_data($file_path, $plugin_headers);
         self::$plugin_data['file'] = $file_path;
         self::$plugin_data['slug'] = plugin_basename($file_path);
@@ -45,9 +45,8 @@ class Base
      */
     public static function plugin_data($key = null)
     {
-        if (! empty($key)) {
+        if (! empty($key))
             return isset(self::$plugin_data[$key]) ? self::$plugin_data[$key] : '';
-        }
         
         return self::$plugin_data;
     }
@@ -104,7 +103,7 @@ class Base
      */
     public static function get_files_list($directory, $filter = null)
     {
-        $files = array();
+        $files = [];
         if (file_exists($directory)) {
             foreach (scandir($directory) as $item) {
                 if ((in_array($item, [
@@ -150,9 +149,9 @@ class Base
     {
         $path = self::base_path() . '/resources/views';
         $path .= '/' . str_replace('.', '/', $view) . '.php';
-        if ($data) {
+        if ($data)
             extract($data);
-        }
+        
         ob_start();
         include $path;
         $html = ob_get_contents();
@@ -172,16 +171,16 @@ class Base
      */
     public static function enque_script($filename, $subdir = null, $handle = null)
     {
-        $file = \pathinfo($filename);
+        $file = pathinfo($filename);
         $handle = ! empty($handle) ? $handle : $file['filename'];
         $part_path = ! empty($subdir) ? $subdir . '/' : '';
         $part_path .= $filename;
         if ($file['extension'] == 'js') {
-            \wp_enqueue_script($handle, Self::base_url() . '/js/' . $part_path, array(
+            wp_enqueue_script($handle, Self::base_url() . '/js/' . $part_path, [
                 'jquery'
-            ), self::plugin_data('version'), true);
+            ], self::plugin_data('version'), true);
         } elseif ($file['extension'] == 'css') {
-            \wp_enqueue_style($handle, Self::base_url() . '/css/' . $part_path, array(), self::plugin_data('version'));
+            wp_enqueue_style($handle, Self::base_url() . '/css/' . $part_path, [], self::plugin_data('version'));
         }
     }
 }

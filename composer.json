@@ -3,11 +3,12 @@
     "description": "Base files for creating new WordPress plugin",
     "keywords": ["wordpress", "plugin"],
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Khaled Hossain"
-        }
-    ],
+    "authors": [{
+        "name": "Khaled Hossain"
+    }],
+    "require": {
+        "php": ">=5.4"
+    },
     "autoload": {
         "psr-4": {
             "PluginBase\\": "models/"

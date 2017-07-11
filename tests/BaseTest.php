@@ -1,17 +1,17 @@
 <?php
-
 namespace PluginBase;
 
 class BaseTest extends \TestCase
 {
+
     public function test_plugin_data()
     {
-        $this->assertTrue(!empty(Base::plugin_data('name')));
-        $this->assertTrue(!empty(Base::plugin_data('version')));
-        $this->assertTrue(!empty(Base::plugin_data('file')));
-        $this->assertTrue(!empty(Base::plugin_data('slug')));
-        $this->assertTrue(!empty(Base::plugin_data('path')));
-        $this->assertTrue(!empty(Base::plugin_data('url')));
+        $this->assertTrue(! empty(Base::plugin_data('name')));
+        $this->assertTrue(! empty(Base::plugin_data('version')));
+        $this->assertTrue(! empty(Base::plugin_data('file')));
+        $this->assertTrue(! empty(Base::plugin_data('slug')));
+        $this->assertTrue(! empty(Base::plugin_data('path')));
+        $this->assertTrue(! empty(Base::plugin_data('url')));
     }
 
     public function test_plugin_data_all()
@@ -27,23 +27,23 @@ class BaseTest extends \TestCase
 
     public function test_base_url()
     {
-        $this->assertTrue(!empty(Base::base_url()));
+        $this->assertTrue(! empty(Base::base_url()));
     }
 
     public function test_resource_path()
     {
-        $this->assertEquals(Base::resource_path(), dirname(dirname(__FILE__)).'/resources');
+        $this->assertEquals(Base::resource_path(), dirname(dirname(__FILE__)) . '/resources');
     }
 
     public function test_resource_url()
     {
-        $this->assertTrue(!empty(Base::resource_url()));
+        $this->assertTrue(! empty(Base::resource_url()));
     }
 
     public function test_get_files_list()
     {
         $files = Base::get_files_list(__DIR__, 'php');
-        $this->assertTrue(!empty($files));
+        $this->assertTrue(! empty($files));
         $this->assertFalse(array_search('.', $files));
         $this->assertFalse(array_search('..', $files));
     }
@@ -56,10 +56,20 @@ class BaseTest extends \TestCase
         }
     }
 
+    public function _test_load_controllers()
+    {
+        // N/A
+    }
+
     public function test_view()
     {
         $this->assertFalse(empty(Base::view('message', [
-            'message' => 'updated',
+            'message' => 'updated'
         ])));
+    }
+
+    public function _test_enque_script()
+    {
+        // N/A
     }
 }
