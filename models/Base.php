@@ -11,9 +11,32 @@ class Base
 {
 
     /**
+     * Singleton instance
+     *
+     * @var object Base
+     */
+    private static $instance;
+
+    /**
      * an array to hold plugin's data.
      */
     private static $plugin_data = array();
+
+    /**
+     *
+     * @return object Base
+     */
+    public static function getInstance()
+    {
+        if (null === static::$instance) {
+            static::$instance = new static();
+        }
+        
+        return static::$instance;
+    }
+
+    private function __construct()
+    {}
 
     /**
      * Populate $plugin_data.
@@ -182,6 +205,19 @@ class Base
             ), self::plugin_data('version'), true);
         } elseif ($file['extension'] == 'css') {
             \wp_enqueue_style($handle, Self::base_url() . '/css/' . $part_path, array(), self::plugin_data('version'));
+        }
+    }
+
+    public static function __callStatic($method, $args)
+    {
+        $instance = static::getInstance();
+        try {
+            return call_user_func_array([
+                $instance,
+                $method
+            ], $args);
+        } catch (Exception $e) {
+            return 'Exception: ' . $e->getMessage() . "\n";
         }
     }
 }
