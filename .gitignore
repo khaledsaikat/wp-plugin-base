@@ -1,3 +1,6 @@
 vendor
-!.gitignore
-.*
+.buildpath
+.idea/
+.project
+.settings/
+
