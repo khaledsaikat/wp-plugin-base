@@ -10,7 +10,8 @@ Author URI: http://khaledsaikat.com
 
 namespace PluginBase;
 
-require __DIR__.'/vendor/autoload.php';
+//require __DIR__.'/vendor/autoload.php';
+require 'autoload.php';
 
 Base::init(__FILE__);
 Base::load_controllers();
