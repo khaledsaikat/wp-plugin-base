@@ -10,8 +10,13 @@ Author URI: http://khaledsaikat.com
 
 namespace PluginBase;
 
-//require __DIR__.'/vendor/autoload.php';
-require 'autoload.php';
+/**
+ * Loading dependencies
+ *
+ * autoload.php can be used if only models need to load
+ * require 'autoload.php';
+ */
+require __DIR__.'/vendor/autoload.php';
 
 Base::init(__FILE__);
 Base::load_controllers();
