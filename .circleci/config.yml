@@ -11,7 +11,7 @@ version: 2
 
 job-references:
   mysql_image: &mysql_image
-    circleci/mysql:5.6
+    circleci/mysql:5.7
 
   setup_environment: &setup_environment
     name: "Setup Environment Variables"
@@ -46,7 +46,7 @@ job-references:
             rm -rf $WP_TESTS_DIR $WP_CORE_DIR
             bash bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 latest
             phpunit
-            #WP_MULTISITE=1 phpunit
+            WP_MULTISITE=1 phpunit
 
 jobs:
   php56-build:
